@@ -119,19 +119,5 @@ class Dataase{
 
         }
     }
-
-    public function createTable($sql){
-
-        try {
-
-            $this->connenction->exec($sql);
-            return true;
-            
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-
-    }
-
 }
 

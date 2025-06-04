@@ -1,7 +1,7 @@
 <?php
 
-use Admin\Admin;
 use database\Dataase;
+use Admin\Category;
 
 //session start
 session_start();
@@ -12,17 +12,14 @@ define('CURRENT_DOMAIN', currentDomain() . '/project/');
 
 define('DISPLAY_ERRORS', true);
 
-
-
 // Database properties
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'project');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+// define('DB_HOST', 'localhost');
+// define('DB_NAME', 'project');
+// define('DB_USERNAME', 'root');
+// define('DB_PASSWORD', '');
 // for connect to the database ==> please uncomment the above database properties
 
-require_once 'database/Database.php';
-require_once 'activities/Admin/Category.php';
+
 
 // routing system
 
@@ -142,22 +139,10 @@ function methodFiled(){
 }
 
 
-
-
 $routes = [
-    
-   uri("Admin/Category", "Admin\Category", "index"),
-   uri("Admin/Category/create", "Admin\Category", "create"),
-   uri("Admin/Category/store", "Admin\Category", "store", "POST"),
-   uri("Admin/Category/edit/{id}", "Admin\Category", "edit",),
-   uri("Admin/Category/update/{id}", "Admin\Category", "update", "POST"),
-   uri("Admin/Category/delete/{id}", "Admin\Category", "delete"),
-
+    //Your can here reserving url
 ];
 
 if(!in_array(true, $routes)){
     echo "404 Not Found";
 }
-
-
-
