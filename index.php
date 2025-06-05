@@ -140,7 +140,13 @@ function methodFiled(){
 
 
 $routes = [
-    //Your can here reserving url
+    uri("admin/Category", "Admin\Category", "index"),
+    uri("admin/Category/create", "Admin\Category", "create"),
+    uri("admin/Category/store", "Admin\Category", "store", "POST"),
+    uri("admin/Category/edit/{id}", "Admin\Category", "edit"),
+    uri("admin/Category/update/{id}", "Admin\Category", "update", "POST"),
+    uri("admin/Category/delete/{id}", "Admin\Category", "delete"),
+
 ];
 
 if(!in_array(true, $routes)){
