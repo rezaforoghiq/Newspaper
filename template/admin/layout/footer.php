@@ -14,6 +14,7 @@
 $(document).ready(function(){
         CKEDITOR.replace('summary');
         CKEDITOR.replace('body');
+        CKEDITOR.replace('description');
 
         $("#published_at_view").persianDatepicker({
 
@@ -23,8 +24,15 @@ $(document).ready(function(){
                                 enabled: true
                         }
                 },
+
+                timePicker:{
+                        enabled: true
+                },
+
                 observer : true,
                 altField: '#published_at'
+
+
 
         })
 });

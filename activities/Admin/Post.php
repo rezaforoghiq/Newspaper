@@ -165,6 +165,16 @@ class Post extends Admin
 
 
 
+    public function show($id){
+
+        $db = new DataBase();
+        $post = $db->select("SELECT * FROM posts WHERE id = ?", [$id])->fetch();
+        require_once(BASE_PATH . "/template/admin/post/show.php");
+
+    }
+
+
+
 
 
 

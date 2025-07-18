@@ -25,6 +25,12 @@ require_once("./activities/Admin/Admin.php");
 require_once("./activities/Admin/Category.php");
 require_once("./activities/Admin/Post.php");
 require_once("./activities/Admin/Banner.php");
+require_once("./activities/Admin/User.php");
+require_once("./activities/Admin/Comment.php");
+require_once("./activities/Admin/Menu.php");
+require_once("./activities/Admin/Setting.php");
+require_once("./activities/Admin/Dashboard.php");
+
 
 
 
@@ -77,6 +83,22 @@ function uri($reservedUrl, $class, $method, $requestMethod = "GET")
 
 
 // helpers
+
+spl_autoload_register(function($className){
+
+    $path = BASE_PATH . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR;
+    include $path . $className . ".php";
+
+});
+
+function jdate($date){
+
+    return \Parsidev\Jalali\jDate::forge($date)->format("datetime");
+
+}
+
+
+
 function protocol()
 {
     if (stripos($_SERVER["SERVER_PROTOCOL"], "https") === true) {
@@ -155,29 +177,72 @@ function methodFiled()
 
 
 $routes = [
-
+    //Categories
     uri("admin/Category", "Admin\Category", "index"),
     uri("admin/Category/create", "Admin\Category", "create"),
     uri("admin/Category/store", "Admin\Category", "store", "POST"),
     uri("admin/Category/edit/{id}", "Admin\Category", "edit"),
     uri("admin/Category/update/{id}", "Admin\Category", "update", "POST"),
     uri("admin/Category/delete/{id}", "Admin\Category", "delete"),
+
+    
+    //Posts
     uri("admin/Post","Admin\Post", "index"),
     uri("admin/Post/create", "Admin\Post", "create"),
     uri("admin/Post/store", "Admin\Post", "store", "POST"),
     uri("admin/Post/edit/{id}", "Admin\Post", "edit"),
     uri("admin/Post/update/{id}", "Admin\Post", "update", "POST"),
     uri("admin/Post/delete/{id}", "Admin\Post", "delete"),
+    uri("admin/Post/show/{id}", "Admin\Post", "show"),
     uri("admin/Post/selected/{id}", "Admin\Post", "selected"),
     uri("admin/Post/breaking-news/{id}", "Admin\Post", "breakingNews"),
+
+
+    //Banners
     uri("admin/Banner", "Admin\Banner", "index"),
     uri("admin/Banner/create", "Admin\Banner", "create"),
     uri("admin/Banner/store", "Admin\Banner", "store", "POST"),
     uri("admin/Banner/edit/{id}", "Admin\Banner", "edit"),
     uri("admin/Banner/update/{id}", "Admin\Banner", "update", "POST"),
-    uri("admin/Banner/delete/{id}", "Admin\Banner", "delete", "POST"),
+    uri("admin/Banner/delete/{id}", "Admin\Banner", "delete"),
 
-    
+
+    //Users
+    uri("admin/User", "Admin\User", "index"),
+    uri("admin/User/create", "Admin\User", "create"),
+    uri("admin/User/store", "Admin\User", "store", "POST"),
+    uri("admin/User/edit/{id}", "Admin\User", "edit"),
+    uri("admin/User/update/{id}", "Admin\User", "update", "POST"),
+    uri("admin/User/permission/{id}", "Admin\User", "permission"),
+    uri("admin/User/delete/{id}", "Admin\User", "delete"),
+
+
+    //Comments
+    uri("admin/Comment", "Admin\Comment", "index"),
+    uri("admin/Comment/status/{id}", "Admin\Comment", "status"),
+    uri("admin/Comment/show/{id}", "Admin\Comment", "show"),
+    uri("admin/Comment/redirect-back", "Admin\Comment", "rb"),
+
+
+    //Menus
+    uri("admin/Menu", "Admin\Menu", "index"),
+    uri("admin/Menu/create", "Admin\Menu", "create"),
+    uri("admin/Menu/store", "Admin\Menu", "store", "POST"),
+    uri("admin/Menu/edit/{id}", "Admin\Menu", "edit"),
+    uri("admin/Menu/update/{id}", "Admin\Menu", "update", "POST"),
+    uri("admin/Menu/show/{id}", "Admin\Menu", "show"),
+    uri("admin/Menu/delete/{id}", "Admin\Menu", "delete"),
+
+
+    //Setting
+    uri("admin/Setting", "Admin\Setting", "index"),
+    uri("admin/Setting/edit/{id}", "Admin\Setting", "edit"),
+    uri("admin/Setting/update/{id}", "Admin\Setting", "update", "POST"),
+
+
+    //Dashboard
+    uri("admin/Dashboard", "Admin\Dashboard", "index")
+
 
 
 

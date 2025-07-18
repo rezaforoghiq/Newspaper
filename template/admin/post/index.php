@@ -60,6 +60,7 @@
                     <hr class="my-1" />
                     <a role="button" class="btn btn-sm btn-primary text-white" href="<?= url("admin/Post/edit/". $post["id"]); ?>">edit</a>
                     <a role="button" class="btn btn-sm btn-danger text-white" href="<?= url("admin/Post/delete/". $post["id"]); ?>">delete</a>
+                    <a role="button" class="btn btn-sm btn-pink text-white" href="<?= url("admin/Post/show/". $post["id"]) ?>">show</a>
                 </td>
             </tr>
         <?php } ?>
