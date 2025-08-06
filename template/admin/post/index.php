@@ -29,7 +29,7 @@
 
                 <td><?= $post["title"] ?></td>
 
-                <td><?= $post["summary"] ?></td>
+                <td><?= substr($post["summary"], 0, 100) . " ..." ?></td>
 
                 <td>
                 <?php if($post["breaking_news"] !== 1){ ?>

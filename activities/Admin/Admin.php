@@ -2,6 +2,9 @@
 
 namespace Admin;
 
+use Auth\Auth;
+
+//Admin class for helper and rotin function for using in the admin classes
 
 class Admin
 {
@@ -10,9 +13,10 @@ class Admin
     protected $currentDomain;
     protected $basePath;
 
-    function __construct()
+    function __construct() //در اجرای متغیر های واجب همزمان با شروع استفاده از این کلاس در همه صفحلت بخش ادمین که از این کلاس ارث بری کردند
     {
-
+        $auth = new Auth;
+        $auth->checkAdmin();
         $this->currentDomain = CURRENT_DOMAIN;
         $this->basePath = BASE_PATH;
 
@@ -20,7 +24,7 @@ class Admin
 
 
 
-    protected function redirect($url)
+    protected function redirect($url) //هدایت کاربر به آدرس دلخواه در پروژه
     {
 
         header("Location: " . trim($this->currentDomain, "/ ") . "/" . trim($url, "/ "));
@@ -30,7 +34,7 @@ class Admin
 
 
 
-    protected function redirectBack()
+    protected function redirectBack()//برگرداندن کاربر به آدرس قبلی
     {
 
         header("Location: " . $_SERVER["HTTP_REFERER"]);
@@ -40,7 +44,7 @@ class Admin
 
 
 
-    protected function saveImage($image, $imagePath, $imageName = null)
+    protected function saveImage($image, $imagePath, $imageName = null) //ذخیره عکس
     {
 
         if ($imageName) {
@@ -79,7 +83,7 @@ class Admin
     }
 
 
-    protected function removeImage($url)
+    protected function removeImage($url)  //پاک کردن عکس از دایرکتوری
     {
 
         $path = trim($url, "/ ");

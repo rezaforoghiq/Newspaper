@@ -1,10 +1,15 @@
 <?php
-
-use database\Dataase;
-use Admin\Category;
-
 //session start
 session_start();
+
+
+// use Auth\Auth;
+use Auth\Auth;
+use Auth\Mail;
+use Admin\Category;
+use database\Dataase;
+
+
 
 define('BASE_PATH', __DIR__);
 
@@ -19,6 +24,17 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 // for connect to the database ==> please uncomment the above database properties
 
+//Send Mail
+define("MAIL_HOST", "smtp.gmail.com");
+define("SMTP_AUTH", true);
+define("MAIL_USERNAME", "newspaper.verify@gmail.com");
+define("MAIL_PASSWORD", "sfua qhcm rtge tykb");
+define("MAIL_PORT", 587);
+define("SENDER_MAIL", "newspaper.verify@gmail.com");
+define("SENDER_NAME", "Newspaper");
+
+
+
 //requier once
 require_once("./database/DataBase.php");
 require_once("./activities/Admin/Admin.php");
@@ -30,6 +46,8 @@ require_once("./activities/Admin/Comment.php");
 require_once("./activities/Admin/Menu.php");
 require_once("./activities/Admin/Setting.php");
 require_once("./activities/Admin/Dashboard.php");
+require_once("./activities/Auth/Auth.php");
+require_once("./activities/Auth/Message.php");
 
 
 
@@ -90,6 +108,14 @@ spl_autoload_register(function($className){
     include $path . $className . ".php";
 
 });
+
+
+
+// $auth = new Auth();
+// $bd = new Mail();
+
+// $auth->sendMailer("tarfandnet.com@gmail.com", "Reza", "ایمیل فعالسازی");
+// exit;
 
 function jdate($date){
 
@@ -162,12 +188,16 @@ function flash($name, $value = null)
 {
     if ($value === null) {
         global $flashMessage;
-        $message = $flashMessage[$name];
-        return $message;
+        if (is_array($flashMessage) && isset($flashMessage[$name])) {
+            return $flashMessage[$name];
+        } else {
+            return null;
+        }
     } else {
         $_SESSION["flash_message"][$name] = $value;
     }
 }
+
 
 function methodFiled()
 {
@@ -241,8 +271,27 @@ $routes = [
 
 
     //Dashboard
-    uri("admin/Dashboard", "Admin\Dashboard", "index")
+    uri("admin/Dashboard", "Admin\Dashboard", "index"),
 
+
+    //Message
+    uri("forgot-message", "Auth\Message", "forgotMessage"),
+    uri("reset-message", "Auth\Message", "resetMessage"),
+
+    //Auth
+    uri("login", "Auth\Auth", "login"),
+    uri("check-login", "Auth\Auth", "checkLogin", "POST"),
+    uri("register", "Auth\Auth", "register"),
+    uri("register/store", "Auth\Auth", "registerStore", "POST"),
+    uri("activation/{verify_token}", "Auth\Auth", "activation"),
+    uri("logout", "Auth\Auth", "logout"),
+    uri("forgot", "Auth\Auth", "forgot"),
+    uri("forgot-request", "Auth\Auth", "forgotRequest", "POST"),
+    uri("reset-password/{forgot_token}", "Auth\Auth", "resetPassword"),
+    uri("reset-password/change/{id}", "Auth\Auth", "resetPasswordRequest", "POST")
+
+
+    
 
 
 
@@ -251,3 +300,4 @@ $routes = [
 if (!in_array(true, $routes)) {
     echo "404 Not Found";
 }
+

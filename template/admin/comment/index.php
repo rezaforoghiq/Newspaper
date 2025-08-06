@@ -49,6 +49,8 @@
 <?php
                     } 
 ?>
+
+                    <a class="btn btn-sm text-white btn-pink" href="<?= url("admin/Comment/show/". $comment["id"]) ?>">show</a>
                 </td>
             </tr>
         </tbody>
